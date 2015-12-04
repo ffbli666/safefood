@@ -1,0 +1,13 @@
+{
+  "name": "express",
+  "description": "my express template",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "async": "^1.5.0",
+    "body-parser": "^1.14.1",
+    "bson": "^0.4.19",
+    "elasticsearch": "^10.0.1",
+    "express": "^4.13.3"
+  }
+}
