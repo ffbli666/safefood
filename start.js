@@ -6,7 +6,7 @@ var fs         = require('fs');
 global.async   = require('async');
 global.config  = require('./config')();
 var elasticsearch = require('./system/database/elasticsearch');
-global.database = elasticsearch.start(config.database);
+
 
 if (cluster.isMaster) {
     for (var i = 0; i < numCPUs; i++) {
@@ -24,5 +24,6 @@ else
 {
     //mysql.start(config.mysql);
     //mongodb.start(config.database);
+    global.database = elasticsearch.start(config.database);
     server.start(config.server);
 }

@@ -1,6 +1,7 @@
 module.exports = function(app) {
     return {
         server: {
+            environment: 'staging',
             port: 8888
         },
         database: {

@@ -34,7 +34,22 @@ exports.get = function(req, res) {
 };
 
 exports.search = function(req, res) {
-    //console.log(req.body);
-    //foodModel.create(req.body)
-    res.json({status:200, msg:'ok', result: req.body});
+    console.log(req.query);
+    foodModel.search(req.query, function(err, response) {
+        if (err) {
+            res.status(400).json({status:400, msg:'error', result: err});
+            return;
+        }
+        res.json({status:200, msg:'ok', result: response});
+    })
+};
+
+exports.del = function(req, res) {
+    foodModel.del(req.params.id, function(err, response) {
+        if (err) {
+            res.status(400).json({status:400, msg:'error', result: err});
+            return;
+        }
+        res.json({status:200, msg:'ok', result: response});
+    })
 };

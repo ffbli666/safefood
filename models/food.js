@@ -53,13 +53,47 @@ function food (db) {
         });
     };
 
-    var search = function(data, myCallback) {
-        var cdata = {};
+    var search = function(query, myCallback) {
+        var condition = {
+            query: {
+                bool: {
+                }
+            },
+            filter: {
+                term: {
+                    deleted : false
+                }
+            },
+            sort: {
+                update_time: {
+                    order: 'desc'
+                }
+            },
+            size: 10,
+            from: 0
+        };
 
+        if (query.q) {
+            condition.query.bool.should = [
+                {match: {name   : query.q}},
+                {match: {company: query.q}},
+                {match: {barcode: query.q}}
+            ];
+        }
+
+        if (query.size) {
+            condition.size = query.size;
+        }
+
+        if (query.from) {
+            condition.from = query.from;
+        }
+
+        console.log(condition);
         db.search({
             index: config.database.index,
             type: 'food',
-            body: cdata
+            body: condition
         }, function (error, response) {
             if (error) {
                 myCallback(error);
@@ -101,14 +135,15 @@ function food (db) {
             index: config.database.index,
             type: 'food',
             id: id,
-            body: cdata
+            body: {doc: cdata}
         }, function (error, response) {
             if (error) {
                 myCallback(error);
                 return;
             }
-            myCallback(null, response);
+            myCallback(null, {id: id});
         });
+        // real delete
         // client.delete({
         //     index: config.database.index,
         //     type: 'food',
@@ -120,7 +155,7 @@ function food (db) {
         //     }
         //     myCallback(null, result);
         // });
-    }
+    };
 
     return {
         create: create,
