@@ -99,8 +99,34 @@ function food (db) {
                 myCallback(error);
                 return;
             }
-            myCallback(null, response);
+            var list = listFormat(response);
+            myCallback(null, list);
         });
+    };
+
+    var listFormat = function(response) {
+        var result = {
+            total: response.hits.total,
+            list:[]
+        };
+        response.hits.hits.forEach(function(element, index, array) {
+            var data = dataFormat(element);
+            result.list.push(data);
+        })
+        return result;
+    };
+
+    var dataFormat = function(element) {
+        return {
+            id: element._id,
+            name: element._source.name,
+            company: element._source.company,
+            barcode: element._source.barcode,
+            description: element._source.description,
+            hyperlinks: element._source.hyperlinks,
+            create_time: element._source.create_time,
+            update_time: element._source.update_time
+        };
     };
 
     var get = function(id, myCallback) {
@@ -113,17 +139,7 @@ function food (db) {
                 myCallback(error);
                 return;
             }
-
-            var result = {
-                id: response._id,
-                name: response._source.name,
-                company: response._source.company,
-                barcode: response._source.barcode,
-                description: response._source.description,
-                hyperlinks: response._source.hyperlinks,
-                create_time: response._source.create_time,
-                update_time: response._source.update_time
-            };
+            var result = dataFormat(response);
             myCallback(null, result);
         });
     };
