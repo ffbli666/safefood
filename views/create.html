@@ -1,33 +1,83 @@
 {% include "templates/head.html" %}
-<div class="container">
+<div class="create container">
+
     <h3>請輸入你想提供的食品名稱</h3>
     <hr/>
-    <form>
-        <div class="form-group">
-            <label>食品名稱</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="例如：xxx 牛奶">
-        </div>
-        <div class="form-group">
-            <label>公司名稱</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="例如：xxx 公司">
-        </div>
-        <div class="form-group">
-            <label>條碼</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="例如: 1234567890123">
-        </div>
-        <div class="form-group">
-            <label>食品的圖片</label>
-            <input type="file" id="image">
-                <!-- <p class="help-block">Example block-level help text here.</p> -->
-        </div>
-        <div class="form-group">
-            <textarea class="form-control" rows="3" placeholder="例如: 黑心原料"></textarea>
-        </div>
-        <div class="form-group">
-            <label>新聞連結</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="例如: https://tw.yahoo.com/">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <validator name="validation1">
+        <form class="form-horizontal" v-on:submit.prevent="onSubmit" novalidate>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="red">*</span> 食品名稱</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="例如：xxx 牛奶" v-model="name" v-validate:name.required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="red">*</span> 公司名稱</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="company" name="company" placeholder="例如：xxx 公司 or xxx 集團" v-model="company" v-validate:company.required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="red">*</span> 條碼</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="barcode" name="barcode" placeholder="例如: 1234567890123" v-model="barcode" v-validate:barcode.required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">食品的圖片</label>
+                <div class="col-sm-10">
+                    <input type="file" id="image" name="image">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label"><span class="red">*</span> 原因</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" id="description" name="description" placeholder="例如: 黑心原料" v-model="description" v-validate:description.required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">網站連結</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="link" name="link" placeholder="例如: https://tw.yahoo.com" v-model="link">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" v-bind:disabled="$validation1.invalid">確定</button>
+                    <button type="button" class="btn btn-default" v-on:click="cancel()">取消</button>
+                </div>
+            </div>
+        </form>
+     </validator>
 </div>
 {% include "templates/footer.html" %}
+<script>
+var foodList = new Vue({
+    el: '.create',
+    data: {},
+    methods: {
+        onSubmit: function() {
+            var that = this;
+            var data = {
+                name        : this.name,
+                company     : this.company,
+                barcode     : this.barcode,
+                description : this.description,
+                link        : this.link
+            };
+            console.log(data);
+            // this.$http.post('/someUrl', function (data, status, request) {
+
+            //   // set data on vm
+            //     this.$set('someData', data)
+
+            // }).error(function (data, status, request) {
+            //     // handle error
+            // });
+        },
+        cancel: function() {
+            window.location.href = "/";
+        }
+    }
+});
+</script>

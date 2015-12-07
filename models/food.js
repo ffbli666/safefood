@@ -6,20 +6,20 @@ function food (db) {
     var create = function(data, myCallback) {
         var date = new Date();
         var cdata = {
-            name: data.name,
-            company: data.company,
-            barcode: data.barcode,
-            description: data.description,
-            hyperlinks: data.hyperlinks,
-            deleted: false,
-            create_time: date,
-            update_time: date
+            name        : data.name,
+            company     : data.company,
+            barcode     : data.barcode,
+            description : data.description,
+            hyperlinks  : data.hyperlinks,
+            deleted     : false,
+            create_time : date,
+            update_time : date
         };
 
         db.create({
-            index: config.database.index,
-            type: 'food',
-            body: cdata
+            index : config.database.index,
+            type  : 'food',
+            body  : cdata
         }, function (error, response) {
             if (error) {
                 myCallback(error);
@@ -31,19 +31,19 @@ function food (db) {
 
     var update = function(id, data, myCallback) {
         var cdata = {
-            name: data.name,
-            company: data.company,
-            barcode: data.barcode,
-            description: data.description,
-            hyperlinks: data.hyperlinks,
-            update_time: new Date()
+            name        : data.name,
+            company     : data.company,
+            barcode     : data.barcode,
+            description : data.description,
+            hyperlinks  : data.hyperlinks,
+            update_time : new Date()
         };
 
         db.update({
-            index: config.database.index,
-            type: 'food',
-            id: id,
-            body: {doc: cdata}
+            index : config.database.index,
+            type  : 'food',
+            id    : id,
+            body  : {doc: cdata}
         }, function (error, response) {
             if (error) {
                 myCallback(error);
@@ -91,9 +91,9 @@ function food (db) {
 
         console.log(condition);
         db.search({
-            index: config.database.index,
-            type: 'food',
-            body: condition
+            index : config.database.index,
+            type  : 'food',
+            body  : condition
         }, function (error, response) {
             if (error) {
                 myCallback(error);
@@ -118,22 +118,22 @@ function food (db) {
 
     var dataFormat = function(element) {
         return {
-            id: element._id,
-            name: element._source.name,
-            company: element._source.company,
-            barcode: element._source.barcode,
-            description: element._source.description,
-            hyperlinks: element._source.hyperlinks,
-            create_time: element._source.create_time,
-            update_time: element._source.update_time
+            id          : element._id,
+            name        : element._source.name,
+            company     : element._source.company,
+            barcode     : element._source.barcode,
+            description : element._source.description,
+            hyperlinks  : element._source.hyperlinks,
+            create_time : element._source.create_time,
+            update_time : element._source.update_time
         };
     };
 
     var get = function(id, myCallback) {
         db.get({
-            index: config.database.index,
-            type: 'food',
-            id: id
+            index : config.database.index,
+            type  : 'food',
+            id    : id
         }, function (error, response) {
             if (error) {
                 myCallback(error);
@@ -148,10 +148,10 @@ function food (db) {
         var cdata = {deleted: true};
         //soft delete
         db.update({
-            index: config.database.index,
-            type: 'food',
-            id: id,
-            body: {doc: cdata}
+            index : config.database.index,
+            type  : 'food',
+            id    : id,
+            body  : {doc: cdata}
         }, function (error, response) {
             if (error) {
                 myCallback(error);
@@ -174,10 +174,10 @@ function food (db) {
     };
 
     return {
-        create: create,
-        update: update,
-        get: get,
-        search: search,
-        del: del
+        create  : create,
+        update  : update,
+        get     : get,
+        search  : search,
+        del     : del
     };
 };

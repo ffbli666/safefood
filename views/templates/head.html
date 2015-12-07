@@ -17,20 +17,59 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <style>
-        body {
-
-            padding-top: 70px;
-        }
-        .footer {
-            background-color: #f5f5f5;
-            bottom: 0;
-            height: 60px;
-            position: absolute;
-            width: 100%;
-        }
-        .container .text-muted {
-           margin: 20px 0;
-        }
+            html {
+                height: 100%;
+            }
+            body {
+                font-family: Helvetica, Arial, "WenQuanYi Zen Hei", "Apple LiGothic Medium", "Microsoft JhengHei", sans-serif;
+                padding-top: 70px;
+                height: 100%;
+                font-size: 16px
+            }
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .red {
+                color:#f00;
+            }
+            .footer {
+                background-color: #f5f5f5;
+                bottom: 0;
+                height: 60px;
+                position: fixed;
+                width: 100%;
+            }
+            .container .text-muted {
+                margin: 20px 0;
+            }
+            .wrapper {
+                display: table;
+                height: 100%;
+                min-height: 100%;
+                margin-bottom: -60px;
+                padding: 0px 0 60px;
+            }
+            .search {
+                padding: 200px 0 0 ;
+            }
+            .search-input {
+                margin: 0 0 100px;
+            }
+/*            .result {
+                display: none;
+            }*/
+            .food {
+                overflow: auto
+            }
+            .food img{
+                float: left;
+                width: 25%;
+            }
+            .food .caption{
+                float: left;
+            }
         </style>
     </head>
     <body>
@@ -48,11 +87,11 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="{{ navbar['index'] }}"><a href="/">搜尋</a></li>
-                        <li class="{{ navbar['create'] }}"><a href="/create">新增資料</a></li>
+                        <li class="{{ navbar['create'] }}"><a href="create">新增資料</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="{{ navbar['doc'] }}"><a href="/doc">API 說明</a></li>
-                        <li class="{{ navbar['download'] }}"><a href="/download">資料下載</a></li>
+                        <li class="{{ navbar['doc'] }}"><a href="doc">API 說明</a></li>
+                        <li class="{{ navbar['download'] }}"><a href="download">資料下載</a></li>
                     </ul>
                 </div>
             </div>

@@ -1,3 +1,5 @@
+var foodModel  = require('./models/food')(database);
+
 module.exports = function(app) {
     var food = require('./controllers/food');
     //router
@@ -12,6 +14,18 @@ module.exports = function(app) {
     });
     app.get('/create', function(req, res) {
         res.render('create.html', {navbar: {create: 'active'}});
+    });
+
+    app.get('/food/:id', function(req, res) {
+        console.log(req.params.id);
+        foodModel.get(req.params.id, function(err, response) {
+            if (err) {
+            }
+            res.render('food.html', {
+                food: response,
+                navbar: {create: 'active'}
+            });
+        })
     });
     //app.put('/api/food', food.search);
 
