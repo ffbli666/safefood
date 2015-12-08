@@ -1,6 +1,6 @@
 {% include "templates/head.html" %}
 <div class="create container">
-
+    <span><a href="javascript:food.cancel()">搜尋</a></span> > <span>新增資料</span>
     <h3>請輸入你想提供的食品名稱</h3>
     <hr/>
     <validator name="validation1">
@@ -52,7 +52,7 @@
 </div>
 {% include "templates/footer.html" %}
 <script>
-var foodList = new Vue({
+var food = new Vue({
     el: '.create',
     data: {},
     methods: {
@@ -71,7 +71,7 @@ var foodList = new Vue({
             });
         },
         cancel: function() {
-            window.location.href = "/";
+            window.history.back();
         }
     }
 });

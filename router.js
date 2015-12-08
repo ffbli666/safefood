@@ -10,20 +10,21 @@ module.exports = function(app) {
     app.delete ('/api/food/:id', food.del);
 
     app.get('/', function(req, res) {
-        res.render('index.html', {navbar: {index: 'active'}});
+        res.render('index.html', {
+            navbar: {index: 'active'},
+            q: req.query.q
+        });
     });
     app.get('/create', function(req, res) {
         res.render('create.html', {navbar: {create: 'active'}});
     });
 
     app.get('/food/:id', function(req, res) {
-        console.log(req.params.id);
         foodModel.get(req.params.id, function(err, response) {
             if (err) {
             }
             res.render('food.html', {
-                food: response,
-                navbar: {create: 'active'}
+                food: response
             });
         })
     });

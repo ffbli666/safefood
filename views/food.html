@@ -1,6 +1,6 @@
 {% include "templates/head.html" %}
 <div class="information container">
-    <h3>請輸入你想提供的食品名稱</h3>
+    <span><a href="javascript:food.back()">搜尋</a></span> > <span>{{food.name}}</span>
     <hr/>
     <div class="food-information">
         <form class="form-horizontal" v-show="!edit">
@@ -54,6 +54,7 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="button" class="btn btn-primary" v-on:click="editor()">編輯</button>
+                    <button type="button" class="btn btn-default" v-on:click="back()">返回上一頁</button>
                 </div>
             </div>
         </form>
@@ -123,7 +124,7 @@
 </div>
 {% include "templates/footer.html" %}
 <script>
-var foodList = new Vue({
+var food = new Vue({
     el: '.information',
     data: {
         edit: false
@@ -146,11 +147,12 @@ var foodList = new Vue({
         },
         editor: function() {
             this.edit = true;
-            console.log(this.edit);
         },
         cancel: function() {
             this.edit = false;
-            console.log(this.edit);
+        },
+        back: function() {
+            window.history.back();
         }
     }
 });

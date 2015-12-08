@@ -2,7 +2,7 @@
 <div class="container wrapper">
     <div class="search">
         <div class="search-input input-group">
-            <input type="text" class="form-control" id="q" name="q" placeholder="搜尋食品名稱 or 公司名稱 or 條碼的數字...">
+            <input type="text" class="form-control" id="q" name="q" value="{{q}}" placeholder="搜尋食品名稱 or 公司名稱 or 條碼的數字..." v-on:keydown.enter="search()">
             <span class="input-group-btn">
                 <button type="button" class="btn btn-default" v-on:click="search()">
                     <span class="glyphicon glyphicon-search"></span>
@@ -12,6 +12,8 @@
         <!-- <button type="button" class="btn btn-primary">新增資料</button> -->
         <!--  v-for="data in list" -->
         <div class="result">
+            <h3 v-show="!q" style="display:none">最新資料</h3>
+            <h3 v-show="q" style="display:none">搜尋結果</h3>
             <ul>
                 <template v-for="data in list">
                     <li>
@@ -35,12 +37,15 @@
 var foodList = new Vue({
     el: '.search',
     data: {
-        list: []
+        list: [],
+        q: "{{q}}"
     },
     methods: {
         search: function() {
             var that = this;
-            this.$http.get("/api/food?q=" + $("#q").val(), function(data, status, request){
+            this.q = $("#q").val();
+            window.history.pushState({}, "q=" + this.q, "/?q=" + this.q);
+            this.$http.get("/api/food?q=" + this.q, function(data, status, request){
                 that.list = [];
                 data.result.list.forEach(function(element, index, array){
                     element.link = "/food/" + element.id;
@@ -51,4 +56,6 @@ var foodList = new Vue({
         }
     }
 });
+
+foodList.search("{{q}}");
 </script>
