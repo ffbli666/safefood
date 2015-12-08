@@ -14,6 +14,8 @@
         <div class="result">
             <h3 v-show="!q" style="display:none">最新資料</h3>
             <h3 v-show="q" style="display:none">搜尋結果</h3>
+            <div v-show="!find" style="display:none" class="alert alert-warning" role="alert">查詢不到資料 - <a href="/create">幫忙新增資料?</a></div>
+            <div v-show="error" style="display:none" class="alert alert-danger" role="alert">伺服器爆肝了，請儘速聯絡管理員 (<a href="mailto:ffbli666@gmail.com">ffbli666@gmail.com</a>)</div>
             <ul>
                 <template v-for="data in list">
                     <li>
@@ -21,8 +23,8 @@
                             <div class="food thumbnail">
                                 <img v-bind:src="data.imageSrc" v-bind:alt="data.name">
                                 <div class="caption">
-                                    <h3 v-html="data.name"></h3>
-                                    <p  v-html="data.description"></p>
+                                    <h3>{{"{{data.name}}"}}</h3>
+                                    <p>{{"{{data.description}}"}}</p>
                                 </div>
                             </div>
                         </a>
@@ -38,7 +40,9 @@ var foodList = new Vue({
     el: '.search',
     data: {
         list: [],
-        q: "{{q}}"
+        q: "{{q}}",
+        find: true,
+        error: false
     },
     methods: {
         search: function() {
@@ -52,7 +56,12 @@ var foodList = new Vue({
                     element.imageSrc = (element.image) ? element.image : "/images/upload-image.png";
                     that.list.push(element);
                 });
+                if(that.list.length > 0)
+                    that.find = true;
+                else
+                    that.find = false;
             }).error(function (data, status, request) {
+                that.error = true;
             });
         }
     }
