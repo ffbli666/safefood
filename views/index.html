@@ -17,7 +17,7 @@
                     <li>
                         <a v-bind:href="data.link">
                             <div class="food thumbnail">
-                                <img src="images/Koala.jpg" v-bind:alt="data.name">
+                                <img src="/images/Koala.jpg" v-bind:alt="data.name">
                                 <div class="caption">
                                     <h3 v-html="data.name"></h3>
                                     <p  v-html="data.description"></p>
@@ -40,10 +40,10 @@ var foodList = new Vue({
     methods: {
         search: function() {
             var that = this;
-            this.$http.get("api/food?q=" + $("#q").val(), function(data, status, request){
+            this.$http.get("/api/food?q=" + $("#q").val(), function(data, status, request){
                 that.list = [];
                 data.result.list.forEach(function(element, index, array){
-                    element.link = "food/" + element.id;
+                    element.link = "/food/" + element.id;
                     that.list.push(element);
                 });
             }).error(function (data, status, request) {

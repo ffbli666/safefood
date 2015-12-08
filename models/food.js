@@ -117,6 +117,8 @@ function food (db) {
     };
 
     var dataFormat = function(element) {
+        var create = new Date(element._source.create_time);
+
         return {
             id          : element._id,
             name        : element._source.name,
@@ -136,7 +138,15 @@ function food (db) {
             id    : id
         }, function (error, response) {
             if (error) {
+                if (error.status == "404") {
+                    myCallback("Not Found");
+                    return;
+                }
                 myCallback(error);
+                return;
+            }
+            if (response._source.deleted == true) {
+                myCallback("Not Found");
                 return;
             }
             var result = dataFormat(response);

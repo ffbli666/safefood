@@ -57,18 +57,19 @@
             .search-input {
                 margin: 0 0 100px;
             }
-/*            .result {
-                display: none;
-            }*/
             .food {
                 overflow: auto
             }
-            .food img{
+            .food img {
                 float: left;
                 width: 25%;
             }
             .food .caption{
                 float: left;
+            }
+
+            .information img {
+                width: 25%;
             }
         </style>
     </head>
@@ -87,11 +88,11 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="{{ navbar['index'] }}"><a href="/">搜尋</a></li>
-                        <li class="{{ navbar['create'] }}"><a href="create">新增資料</a></li>
+                        <li class="{{ navbar['create'] }}"><a href="/create">新增資料</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="{{ navbar['doc'] }}"><a href="doc">API 說明</a></li>
-                        <li class="{{ navbar['download'] }}"><a href="download">資料下載</a></li>
+                        <li class="{{ navbar['download'] }}"><a href="/download">資料下載</a></li>
                     </ul>
                 </div>
             </div>
