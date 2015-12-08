@@ -19,7 +19,7 @@
                     <li>
                         <a v-bind:href="data.link">
                             <div class="food thumbnail">
-                                <img src="/images/Koala.jpg" v-bind:alt="data.name">
+                                <img v-bind:src="data.imageSrc" v-bind:alt="data.name">
                                 <div class="caption">
                                     <h3 v-html="data.name"></h3>
                                     <p  v-html="data.description"></p>
@@ -49,6 +49,7 @@ var foodList = new Vue({
                 that.list = [];
                 data.result.list.forEach(function(element, index, array){
                     element.link = "/food/" + element.id;
+                    element.imageSrc = (element.image) ? element.image : "/images/upload-image.png";
                     that.list.push(element);
                 });
             }).error(function (data, status, request) {

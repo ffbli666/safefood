@@ -1,8 +1,9 @@
 module.exports = function(app) {
     return {
         server: {
-            environment: 'staging',
-            port: 8888
+            environment: 'staging', // staging or production
+            port: 8888,
+            post_json_limit: '1mb'
         },
         database: {
             driver   : 'elasticsearch',

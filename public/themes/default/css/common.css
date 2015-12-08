@@ -83,6 +83,17 @@ a img {
     float: left;
 }
 
-.information img {
-    width: 25%;
+.image-comment {
+    width: 320px;
+    height: 320px;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+    border: 5px dashed #ccc;
+    color: #999;
+}
+
+.image-upload {
+    margin-top: 10px
+}
 

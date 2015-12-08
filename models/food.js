@@ -11,6 +11,7 @@ function food (db) {
             barcode     : data.barcode,
             description : data.description,
             hyperlinks  : data.hyperlinks,
+            image       : data.image,
             deleted     : false,
             create_time : date,
             update_time : date
@@ -36,6 +37,7 @@ function food (db) {
             barcode     : data.barcode,
             description : data.description,
             hyperlinks  : data.hyperlinks,
+            image       : data.image,
             update_time : new Date()
         };
 
@@ -126,6 +128,7 @@ function food (db) {
             barcode     : element._source.barcode,
             description : element._source.description,
             hyperlinks  : element._source.hyperlinks,
+            image       : element._source.image,
             create_time : element._source.create_time,
             update_time : element._source.update_time
         };

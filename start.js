@@ -24,6 +24,6 @@ else
 {
     //mysql.start(config.mysql);
     //mongodb.start(config.database);
-    global.database = elasticsearch.start(config.database);
+    global.database = elasticsearch.start(config);
     server.start(config.server);
 }
