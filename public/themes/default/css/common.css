@@ -35,6 +35,10 @@ a img {
     border:0px;
 }
 
+.wrapper {
+    min-height: 100%
+}
+
 .red {
     color:#f00;
 }
@@ -81,4 +85,4 @@ a img {
 
 .information img {
     width: 25%;
-}
+
