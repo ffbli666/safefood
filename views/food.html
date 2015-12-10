@@ -51,6 +51,16 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">網站連結</label>
                 <div class="col-sm-10">
+                    <ol class="news";>
+                        {% for item in food.hyperlinks %}
+                            <li>
+                                <a href="{{item.url}}" target="_blank">{{item.title}}</a>
+                                <div>
+                                    {{item.brief}}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ol>
                 </div>
             </div>
             <div class="form-group">
@@ -121,7 +131,7 @@
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">網站連結</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="link" name="link" placeholder="例如：https://tw.yahoo.com" v-model="link[0]">
+                        <hyperlink-group v-bind:hyperlinks="hyperlinks"></hyperlink-group>
                     </div>
                 </div>
                 <div class="form-group">
@@ -137,10 +147,13 @@
 </div>
 {% include "templates/footer.html" %}
 <script>
+var links = {{food.hyperlinks_json | safe}};
+
 var food = new Vue({
     el: '.information',
     data: {
-        edit: false
+        edit: false,
+        hyperlinks: links
     },
     methods: {
         onSubmit: function(e) {
@@ -151,6 +164,7 @@ var food = new Vue({
                 company     : this.company,
                 barcode     : this.barcode,
                 description : this.description,
+                hyperlinks  : this.hyperlinks,
                 image       : imageUpload.getImage()
             };
             this.$http.put('/api/food/' + this.id, data, function (data, status, request) {

@@ -19,6 +19,7 @@ module.exports = function(app) {
             q: req.query.q
         });
     });
+
     app.get('/create', function(req, res) {
         res.render('create.html', {navbar: {create: 'active'}});
     });
@@ -27,6 +28,7 @@ module.exports = function(app) {
         foodModel.get(req.params.id, function(err, response) {
             if (err) {
             }
+            response.hyperlinks_json = JSON.stringify(response.hyperlinks);
             res.render('food.html', {
                 food: response
             });

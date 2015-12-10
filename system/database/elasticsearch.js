@@ -3,11 +3,7 @@ var elasticsearch = require('elasticsearch');
 exports.start = function (config) {
     var log;
     if (config.server.environment == 'staging') {
-        log = {
-            type: 'file',
-            level: 'trace',
-            path: './log/elasticsearch.log'
-        }
+        log = 'trace'
     }
     else {
         log = {

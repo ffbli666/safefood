@@ -44,30 +44,8 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">新聞 or 網站連結</label>
-                <div class="col-sm-10 hyperlink-group">
-                    <ul>
-                        <template v-for="data in hyperlinks">
-                            <li class="hyperlink-item" transition="expand">
-                                <label class="control-label">URL：</label>
-                                <button type="button" class="btn" v-on:click="remove(data)" title="移除">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                                <input type="text" class="form-control" placeholder="例如：https://tw.yahoo.com" v-model="data.url" value="{{"{{data.url}}"}}"><br>
-                                <label class="control-label">標題：</label>
-                                <input type="text" class="form-control" placeholder="例如：yahoo 新聞" v-model="data.title" value="{{"{{data.title}}"}}"><br>
-                                <label class="control-label">簡述：</label>
-                                <textarea class="form-control" rows="3" placeholder="例如：xxx 廠商黑心原料" v-model="data.brief">{{"{{data.brief}}"}}</textarea>
-                            </li>
-                        </template>
-                    </ul>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="例如：https://tw.yahoo.com" v-model="newlink" v-on:keydown.enter="insert()" v-bind:disabled="process">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" v-on:click="insert()" title="新增" v-bind:disabled="process">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                        </span>
-                    </div>
+                <div class="col-sm-10">
+                    <hyperlink-group v-bind:hyperlinks="hyperlinks"></hyperlink-group>
                 </div>
             </div>
             <div class="form-group">
@@ -82,65 +60,33 @@
 {% include "templates/footer.html" %}
 <script>
 "use stric"
-// var HyperlinkGroup = Vue.extend({
-//     template: '',
-//     method: {
-
-//     }
-// })
-// Vue.component('hyperlink-group', HyperlinkGroup)
-var hyperlinkGroup = new Vue({
-    el: ".hyperlink-group",
+var food = new Vue({
+    el: ".create",
     data: {
-        process: false,
         hyperlinks:[]
     },
     methods: {
-        insert: function() {
-            if (this.newlink) {
-                this.process = true;
-                this.$http.get("/api/crawler?url=" + this.newlink, function (data, status, request) {
-                    this.hyperlinks.push(data.result);
-                    this.newlink = "";
-                    this.process = false;
-                }).error(function (data, status, request) {
-                    console.log(data);
-                    this.process = false;
-                });
-            }
+        onSubmit: function(e) {
+            e.preventDefault();
+            var that = this;
+            var data = {
+                name        : this.name,
+                company     : this.company,
+                barcode     : this.barcode,
+                description : this.description,
+                hyperlinks  : this.hyperlinks,
+                image       : imageUpload.getImage()
+            };
+
+            this.$http.post("/api/food", data, function (data, status, request) {
+                window.location.href = "/food/" + data.result.id;
+            }).error(function (data, status, request) {
+            });
         },
-        remove: function(data) {
-            this.hyperlinks.$remove(data)
-        },
-        value: function() {
-            return this.hyperlinks;
+        cancel: function() {
+            window.history.back();
         }
     }
 });
-
-// var food = new Vue({
-//     el: ".create",
-//     data: {},
-//     methods: {
-//         onSubmit: function(e) {
-//             e.preventDefault();
-//             var that = this;
-//             var data = {
-//                 name        : this.name,
-//                 company     : this.company,
-//                 barcode     : this.barcode,
-//                 description : this.description,
-//                 image       : imageUpload.getImage()
-//             };
-//             this.$http.post("/api/food", data, function (data, status, request) {
-//                 window.location.href = "/food/" + data.result.id;
-//             }).error(function (data, status, request) {
-//             });
-//         },
-//         cancel: function() {
-//             window.history.back();
-//         }
-//     }
-// });
 var imageUpload = new ImageUpload("image", "image-preview");
 </script>

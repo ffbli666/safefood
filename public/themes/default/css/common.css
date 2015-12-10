@@ -68,6 +68,7 @@ a img {
 
 .search-input {
     margin: 0 0 100px;
+    width: 100%;
 }
 
 .food {
@@ -95,6 +96,9 @@ a img {
 
 .image-upload {
     margin-top: 10px
+}
+.food-information div > div {
+    padding: 7px 15px;
 }
 
 .hyperlink-group input, .hyperlink-group textarea {
@@ -124,4 +128,9 @@ a img {
 .expand-enter, .expand-leave {
   max-height: 0px;
   opacity: 0;
+}
+
+.news li {
+    padding: 8px 16px;
+    margin: 0 0 10px 0;
 }
