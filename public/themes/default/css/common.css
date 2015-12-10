@@ -107,30 +107,20 @@ a img {
     padding: 8px 16px;
     margin: 0 0 10px 0;
     border-radius: 4px;
- /*   transition: 0.5s ease;
-    -webkit-transition: 0.5s ease;
-    -moz-transition: 0.5s ease;*/
+    overflow: auto;
 }
 
 .hyperlink-item .btn{
     background: #eee;
     float: right;
 }
-/*
-.hyperlink-item .show {
-    opacity: 1;
-    -webkit-opacity: 1;
-    -moz-opacity: 1;
-}*/
 
+/* vue transtition interface*/
 .expand-transition {
   transition: all 1s ease;
   height: auto;
   max-height: 300px;
 }
-
-/* .expand-enter 定义进入的开始状态 */
-/* .expand-leave 定义离开的结束状态 */
 .expand-enter, .expand-leave {
   max-height: 0px;
   opacity: 0;
