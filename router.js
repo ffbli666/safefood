@@ -1,13 +1,17 @@
 var foodModel  = require('./models/food')(database);
 
 module.exports = function(app) {
-    var food = require('./controllers/food');
+
     //router
+    var food = require('./controllers/food');
     app.post   ('/api/food'    , food.create);
     app.put    ('/api/food/:id', food.update);
     app.get    ('/api/food/:id', food.get);
     app.get    ('/api/food'    , food.search);
     app.delete ('/api/food/:id', food.del);
+
+    var crawler = require('./controllers/crawler');
+    app.get ('/api/crawler', crawler.get);
 
     app.get('/', function(req, res) {
         res.render('index.html', {

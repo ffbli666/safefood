@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">食品的圖片</label>
+                <label class="col-sm-2 control-label">食品的圖片</label>
                 <div class="col-sm-10">
                     {% if food.image %}
                         <img src="{{food.image}}" alt="{{food.name}}">
@@ -31,25 +31,25 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">更新時間</label>
+                <label class="col-sm-2 control-label">更新時間</label>
                 <div class="col-sm-10">
                     {{food.update_time}}
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">建立時間</label>
+                <label class="col-sm-2 control-label">建立時間</label>
                 <div class="col-sm-10">
                     {{food.create_time}}
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label"><span class="red">*</span> 原因</label>
+                <label class="col-sm-2 control-label"><span class="red">*</span> 原因</label>
                 <div class="col-sm-10">
                     {{food.description}}
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">網站連結</label>
+                <label class="col-sm-2 control-label">網站連結</label>
                 <div class="col-sm-10">
                 </div>
             </div>
@@ -78,13 +78,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label"><span class="red">*</span> 條碼</label>
+                    <label class="col-sm-2 control-label">條碼</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="barcode" name="barcode" value="{{food.barcode}}" placeholder="例如：1234567890123" v-model="barcode" v-validate:barcode.required>
+                        <input type="text" class="form-control" id="barcode" name="barcode" value="{{food.barcode}}" placeholder="例如：1234567890123" v-model="barcode">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">食品的圖片</label>
+                    <label class="col-sm-2 control-label">食品的圖片</label>
                     <div class="col-sm-10">
                         <div id="image-preview" class="image-preview">
                             {% if food.image %}
@@ -101,25 +101,25 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">更新時間</label>
+                    <label class="col-sm-2 control-label">更新時間</label>
                     <div class="col-sm-10">
                         {{food.update_time}}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">建立時間</label>
+                    <label  class="col-sm-2 control-label">建立時間</label>
                     <div class="col-sm-10">
                         {{food.create_time}}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label"><span class="red">*</span> 原因</label>
+                    <label  class="col-sm-2 control-label"><span class="red">*</span> 原因</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" rows="3" id="description" name="description" placeholder="例如：黑心原料" v-model="description" v-validate:description.required>{{food.description}}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">網站連結</label>
+                    <label  class="col-sm-2 control-label">網站連結</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="link" name="link" placeholder="例如：https://tw.yahoo.com" v-model="link[0]">
                     </div>

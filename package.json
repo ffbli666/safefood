@@ -9,6 +9,7 @@
     "bson": "^0.4.19",
     "elasticsearch": "^10.0.1",
     "express": "^4.13.3",
+    "jsdom": "^7.2.0",
     "nunjucks": "^2.2.0"
   }
 }

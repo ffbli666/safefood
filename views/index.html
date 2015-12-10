@@ -4,7 +4,7 @@
         <div class="search-input input-group">
             <input type="text" class="form-control" id="q" name="q" value="{{q}}" placeholder="搜尋食品名稱 or 公司名稱 or 條碼的數字..." v-on:keydown.enter="search()">
             <span class="input-group-btn">
-                <button type="button" class="btn btn-default" v-on:click="search()">
+                <button type="button" class="btn btn-default" v-on:click="search()" title="搜尋">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </span>

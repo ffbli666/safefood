@@ -1,8 +1,6 @@
 var foodModel  = require('../models/food')(database);
 
 exports.create = function(req, res) {
-    console.log("create");
-    //console.log(req.body);
     foodModel.create(req.body, function(err, response) {
         if (err) {
             res.status(400).json({status:400, msg:err});
@@ -13,7 +11,6 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    console.log("update");
     foodModel.update(req.params.id, req.body, function(err, response) {
         if (err) {
             res.status(400).json({status:400, msg:err});
@@ -25,8 +22,12 @@ exports.update = function(req, res) {
 
 exports.get = function(req, res) {
     foodModel.get(req.params.id, function(err, response) {
-        if (err) {
+        if (err == "Not Found") {
             res.status(404).json({status:404, msg:err});
+            return;
+        }
+        if (err) {
+            res.status(400).json({status:400, msg:err});
             return;
         }
 
@@ -35,7 +36,6 @@ exports.get = function(req, res) {
 };
 
 exports.search = function(req, res) {
-    console.log(req.query);
     foodModel.search(req.query, function(err, response) {
         if (err) {
             res.status(400).json({status:400, msg:err});

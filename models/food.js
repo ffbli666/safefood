@@ -91,7 +91,6 @@ function food (db) {
             condition.from = query.from;
         }
 
-        console.log(condition);
         db.search({
             index : config.database.index,
             type  : 'food',
@@ -128,9 +127,9 @@ function food (db) {
             barcode     : element._source.barcode,
             description : element._source.description,
             hyperlinks  : element._source.hyperlinks,
-            image       : element._source.image,
             create_time : element._source.create_time,
-            update_time : element._source.update_time
+            update_time : element._source.update_time,
+            image       : element._source.image,
         };
     };
 
