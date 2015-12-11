@@ -1,31 +1,22 @@
 var moment = require('moment');
-
+var fs = require("fs");
 module.exports = function(db) {
     return new food(db);
 };
 
 function food (db) {
+    var saveImage = function (imageData, fileName) {
+        var base64Data = imageData.replace(/^data:image\/png;base64,/, "");
+        fs.writeFileSync(fileName, base64Data, 'base64');
+    }
+
     var create = function(data, myCallback) {
         var date = new Date();
         var cdata = {
-            name        : data.name,
-            company     : data.company,
-            barcode     : data.barcode,
-            description : data.description,
-            hyperlinks  : [],
-            image       : data.image,
             deleted     : false,
             create_time : date,
             update_time : date
         };
-
-        data.hyperlinks.forEach(function(element, index, array) {
-            cdata.hyperlinks.push({
-                url   : element.url,
-                title : element.title,
-                brief : element.brief
-            });
-        });
 
         db.create({
             index : config.database.index,
@@ -36,40 +27,58 @@ function food (db) {
                 myCallback(error);
                 return;
             }
-            get(response._id, myCallback);
+            update(response._id, data, myCallback);
         });
     };
 
     var update = function(id, data, myCallback) {
-        var cdata = {
-            name        : data.name,
-            company     : data.company,
-            barcode     : data.barcode,
-            description : data.description,
-            hyperlinks  : [],
-            image       : data.image,
-            update_time : new Date()
-        };
-
-        data.hyperlinks.forEach(function(element, index, array) {
-            cdata.hyperlinks.push({
-                url   : element.url,
-                title : element.title,
-                brief : element.brief
-            });
-        });
-
-        db.update({
-            index : config.database.index,
-            type  : 'food',
-            id    : id,
-            body  : {doc: cdata}
-        }, function (error, response) {
+        get(id, function(error, response) {
             if (error) {
                 myCallback(error);
                 return;
             }
-            get(id, myCallback);
+
+            if (!response.id) {
+                myCallback(error);
+                return;
+            }
+
+
+            var cdata = {
+                name        : data.name,
+                company     : data.company,
+                barcode     : data.barcode,
+                description : data.description,
+                hyperlinks  : [],
+                update_time : new Date()
+            };
+
+            data.hyperlinks.forEach(function(element, index, array) {
+                cdata.hyperlinks.push({
+                    url   : element.url,
+                    title : element.title,
+                    brief : element.brief
+                });
+            });
+
+            if (data.image != "") {
+                var imageName = response.id + ".png";
+                saveImage(data.image, "./public/upload/" + imageName);
+                cdata.image = "/upload/" + imageName;
+            }
+
+            db.update({
+                index : config.database.index,
+                type  : 'food',
+                id    : id,
+                body  : {doc: cdata}
+            }, function (error, response) {
+                if (error) {
+                    myCallback(error);
+                    return;
+                }
+                get(id, myCallback);
+            });
         });
     };
 

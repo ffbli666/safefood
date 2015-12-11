@@ -136,7 +136,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" v-bind:disabled="$validation1.invalid" disabled>確定</button>
+                        <button type="submit" class="btn btn-primary" v-bind:disabled="$validation1.invalid || this.processing" disabled>確定</button>
                         <button type="button" class="btn btn-default" v-on:click="cancel()">取消</button>
                         <!-- || !$validation1.dirty -->
                     </div>
@@ -153,11 +153,13 @@ var food = new Vue({
     el: '.information',
     data: {
         edit: false,
+        processing: false,
         hyperlinks: links
     },
     methods: {
         onSubmit: function(e) {
             e.preventDefault();
+            this.disabled = true;
             var that = this;
             var data = {
                 name        : this.name,
@@ -170,7 +172,9 @@ var food = new Vue({
             this.$http.put('/api/food/' + this.id, data, function (data, status, request) {
                 window.location.href = "/food/" + data.result.id;
                 //this.edit = false;
+                this.processing = false;
             }).error(function (data, status, request) {
+                this.processing = false;
             });
         },
         editor: function() {

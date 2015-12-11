@@ -41,5 +41,5 @@ module.exports = function(app) {
 
 function notFound(req, res)
 {
-    res.send('404', 'Page Not Found');
+    res.status(404).send('Page Not Found');
 }
