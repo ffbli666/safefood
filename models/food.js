@@ -61,7 +61,7 @@ function food (db) {
                 });
             });
 
-            if (data.image != "") {
+            if (data.image && data.image != "") {
                 var imageName = response.id + ".png";
                 saveImage(data.image, "./public/upload/" + imageName);
                 cdata.image = "/upload/" + imageName;
@@ -153,10 +153,10 @@ function food (db) {
             company     : element._source.company,
             barcode     : element._source.barcode,
             description : element._source.description,
+            image       : element._source.image,
             hyperlinks  : element._source.hyperlinks,
             create_time : create,
             update_time : update,
-            image       : element._source.image,
         };
     };
 

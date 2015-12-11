@@ -8,7 +8,7 @@ module.exports = function(app) {
     app.put    ('/api/food/:id', food.update);
     app.get    ('/api/food/:id', food.get);
     app.get    ('/api/food'    , food.search);
-    app.delete ('/api/food/:id', food.del);
+    //app.delete ('/api/food/:id', food.del);
 
     var crawler = require('./controllers/crawler');
     app.get ('/api/crawler', crawler.get);
