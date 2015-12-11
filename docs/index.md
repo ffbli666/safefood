@@ -34,14 +34,14 @@ engine: nunjucks
         "image": "/upload/AVGQwi6wNuRbmFRpYEAk.png",
         "hyperlinks": [
             {
-                "title": "2016必遊12新興旅遊地  台灣上榜 - Yahoo奇摩新聞2016必遊12新興旅遊地 台灣上榜 - Yahoo奇摩新聞",
-                "brief": "閱讀Yahoo奇摩新聞上的「2016必遊12新興旅遊地 台灣上榜」。",
-                "url": "https://tw.news.yahoo.com/2016必遊12新興旅遊地-台灣上榜-021634527.html"
+                "url":"http://tw.yahoo.com",
+                "title":"yahoo 新聞標題",
+                "brief":" xxxx 食安"
             },
             {
-                "title": "北海岸添「光」「彩」 泡湯遊樂趣 - Yahoo奇摩新聞北海岸添「光」「彩」 泡湯遊樂趣 - Yahoo奇摩新聞",
-                "brief": "閱讀Yahoo奇摩新聞上的「北海岸添「光」「彩」 泡湯遊樂趣」。",
-                "url": "https://tw.news.yahoo.com/北海岸添-光-彩-泡湯遊樂趣-063606010.html"
+                "url":"http://tw.yahoo.com",
+                "title":"yahoo 新聞標題",
+                "brief":" xxxx 食安"
             }
         ],
         "create_time": "2015-12-11 19:17:03",
@@ -88,14 +88,14 @@ engine: nunjucks
                 "image": "/upload/AVGQwi6wNuRbmFRpYEAk.png",
                 "hyperlinks": [
                     {
-                        "title": "2016必遊12新興旅遊地  台灣上榜 - Yahoo奇摩新聞2016必遊12新興旅遊地 台灣上榜 - Yahoo奇摩新聞",
-                        "brief": "閱讀Yahoo奇摩新聞上的「2016必遊12新興旅遊地 台灣上榜」。",
-                        "url": "https://tw.news.yahoo.com/2016必遊12新興旅遊地-台灣上榜-021634527.html"
+                        "url":"http://tw.yahoo.com",
+                        "title":"yahoo 新聞標題",
+                        "brief":" xxxx 食安"
                     },
                     {
-                        "title": "北海岸添「光」「彩」 泡湯遊樂趣 - Yahoo奇摩新聞北海岸添「光」「彩」 泡湯遊樂趣 - Yahoo奇摩新聞",
-                        "brief": "閱讀Yahoo奇摩新聞",
-                        "url": "https://tw.news.yahoo.com/北海岸添-光-彩-泡湯遊樂趣-063606010.html"
+                        "url":"http://tw.yahoo.com",
+                        "title":"yahoo 新聞標題",
+                        "brief":" xxxx 食安"
                     }
                 ],
                 "create_time": "2015-12-11 19:17:03",
