@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 module.exports = function(db) {
     return new food(db);
 };
@@ -118,8 +120,8 @@ function food (db) {
     };
 
     var dataFormat = function(element) {
-        var create = new Date(element._source.create_time);
-
+        var create = moment(element._source.create_time).format("YYYY-MM-DD HH:mm:ss");
+        var update = moment(element._source.update_time).format("YYYY-MM-DD HH:mm:ss");
         return {
             id          : element._id,
             name        : element._source.name,
@@ -127,8 +129,8 @@ function food (db) {
             barcode     : element._source.barcode,
             description : element._source.description,
             hyperlinks  : element._source.hyperlinks,
-            create_time : element._source.create_time,
-            update_time : element._source.update_time,
+            create_time : create,
+            update_time : update,
             image       : element._source.image,
         };
     };

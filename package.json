@@ -10,6 +10,7 @@
     "elasticsearch": "^10.0.1",
     "express": "^4.13.3",
     "jsdom": "^7.2.0",
+    "moment": "^2.10.6",
     "nunjucks": "^2.2.0"
   }
 }
