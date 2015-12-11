@@ -12,12 +12,20 @@ function food (db) {
             company     : data.company,
             barcode     : data.barcode,
             description : data.description,
-            hyperlinks  : data.hyperlinks,
+            hyperlinks  : [],
             image       : data.image,
             deleted     : false,
             create_time : date,
             update_time : date
         };
+
+        data.hyperlinks.forEach(function(element, index, array) {
+            cdata.hyperlinks.push({
+                url   : element.url,
+                title : element.title,
+                brief : element.brief
+            });
+        });
 
         db.create({
             index : config.database.index,
@@ -38,10 +46,18 @@ function food (db) {
             company     : data.company,
             barcode     : data.barcode,
             description : data.description,
-            hyperlinks  : data.hyperlinks,
+            hyperlinks  : [],
             image       : data.image,
             update_time : new Date()
         };
+
+        data.hyperlinks.forEach(function(element, index, array) {
+            cdata.hyperlinks.push({
+                url   : element.url,
+                title : element.title,
+                brief : element.brief
+            });
+        });
 
         db.update({
             index : config.database.index,
