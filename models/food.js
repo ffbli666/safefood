@@ -6,7 +6,7 @@ module.exports = function(db) {
 
 function food (db) {
     var saveImage = function (imageData, fileName) {
-        var base64Data = imageData.replace(/^data:image\/png;base64,/, "");
+        var base64Data = imageData.replace(/^data:image\/(png|jpeg);base64,/, "");
         fs.writeFileSync(fileName, base64Data, 'base64');
     }
 

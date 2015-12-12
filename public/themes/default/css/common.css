@@ -77,7 +77,7 @@ a img {
 
 .food img {
     float: left;
-    width: 25%;
+    width: 20%;
 }
 
 .food .caption{
@@ -85,8 +85,8 @@ a img {
 }
 
 .image-comment {
-    width: 320px;
-    height: 320px;
+    width: 240px;
+    height: 240px;
     text-align: center;
     vertical-align: middle;
     display: table-cell;

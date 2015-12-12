@@ -101,7 +101,7 @@
                                 <img src="{{food.image}}" alt="{{food.name}}">
                             {% else %}
                                 <div class="image-comment">
-                                    <label>圖片大小 320 x 320</label>
+                                    <label>圖片大小 240 x 240</label>
                                 </div>
                             {% endif %}
                         </div>
@@ -189,5 +189,5 @@ var food = new Vue({
     }
 });
 
-var imageUpload = new ImageUpload("image", "image-preview");
+var imageUpload = new ImageUpload("image-preview", "image-preview");
 </script>

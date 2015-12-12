@@ -3,7 +3,7 @@ resizeImage = function(image, width, height){
     canvas.width = width;
     canvas.height = height;
     canvas.getContext("2d").drawImage(image, 0, 0, width, height);
-    return canvas.toDataURL("image/png");
+    return canvas.toDataURL("image/jpeg", 85);
 };
 
 var ImageUpload = function (element_id, preview_id) {
@@ -30,7 +30,7 @@ var ImageUpload = function (element_id, preview_id) {
                 var timg = new Image();
                 timg.onload = function() {
                     img = new Image();
-                    img.src = resizeImage(timg, 320, 320);
+                    img.src = resizeImage(timg, 240, 240);
                     preview.innerHTML = "";
                     preview.appendChild(img);
                 };
