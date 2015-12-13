@@ -6,54 +6,56 @@ resizeImage = function(image, width, height){
     return canvas.toDataURL("image/jpeg", 85);
 };
 
-var ImageUpload = function (element_id) {
-    var element = document.getElementById(element_id);
-    var preview = document.getElementById("image-preview");
-    var img = new Image();
-    var input;
-    if (element.type == "file") {
-        input = element;
-    }
-    else {
-        input = document.createElement("input");
-        input.setAttribute("type", "file");
-    }
-    element.onclick = function(e) {
-        if (e.target) {
-            if (e.target.nodeName == "BUTTON"
-                || e.target.nodeName == "IMG"
-                || e.target.className == "image-comment")
-                input.click();
-        }
-    };
-    input.accept = "image/*";
-    input.onchange = function () {
-        var file = input.files[0];
-        if (file.type.match(input.accept)) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var timg = new Image();
-                timg.onload = function() {
-                    img = new Image();
-                    img.src = resizeImage(timg, 240, 240);
-                    preview.innerHTML = "";
-                    preview.appendChild(img);
+var ImageUpload = Vue.extend({
+    template:   '<div class="image-upload">'
+                    +'<div class="image-preview">'
+                        +'<img v-bind:src="image" alt="食品圖片" v-if="image" v-on:click="chooseFile()">'
+                        +'<div class="image-comment" v-if="!image" v-on:click="chooseFile()">'
+                            +'<label>圖片大小 240 x 240</label>'
+                        +'</div>'
+                    +'</div>'
+                    +'<div class="image-button">'
+                        +'<button type="button" class="btn btn-default" v-on:click="chooseFile()">上傳圖片</button>'
+                    +'</div>'
+                +'</div>',
+    data: function () {
+        return {
+            image : '',
+            newImage: '',
+            input : undefined
+        };
+    },
+    props: ['image'],
+    methods: {
+        chooseFile: function() {
+            var that = this;
+            if (!this.input) {
+                input = document.createElement("input");
+                input.setAttribute("type", "file");
+                input.onchange = function () {
+                    var file = input.files[0];
+                    if (file.type.match(input.accept)) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            var img = new Image();
+                            img.onload = function() {
+                                that.image = resizeImage(img, 240, 240);
+                                that.newImage = that.image;
+                            };
+                            img.src = reader.result;
+                        }
+                        reader.readAsDataURL(file);
+                    }
                 };
-                timg.src = reader.result;
             }
-            reader.readAsDataURL(file);
+            input.click();
+        },
+        value: function() {
+            return this.newImage;
         }
-    };
-
-    var getImage = function() {
-        return img.src;
-    };
-
-    return {
-        getImage: getImage
-    };
-};
-
+    }
+});
+Vue.component('image-upload', ImageUpload)
 
 //vue component
 var HyperlinkGroup = Vue.extend({

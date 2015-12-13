@@ -96,20 +96,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">食品的圖片</label>
                     <div class="col-sm-10">
-                        <div id="image">
-                            <div id="image-preview" class="image-preview">
-                                {% if food.image %}
-                                    <img src="{{food.image}}" alt="{{food.name}}">
-                                {% else %}
-                                    <div class="image-comment">
-                                        <label>圖片大小 240 x 240</label>
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <div class="image-upload">
-                                <button type="button" class="btn btn-default">上傳圖片</button>
-                            </div>
-                        </div>
+                        <image-upload v-bind:image="image" v-ref:image></image-upload>
                     </div>
                 </div>
                 <div class="form-group">
@@ -133,7 +120,7 @@
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">網站連結</label>
                     <div class="col-sm-10">
-                        <hyperlink-group v-bind:hyperlinks="hyperlinks"></hyperlink-group>
+                        <hyperlink-group v-bind:hyperlinks="hyperlinks" v-ref:hyperlinks></hyperlink-group>
                     </div>
                 </div>
                 <div class="form-group">
@@ -150,27 +137,33 @@
 {% include "templates/footer.html" %}
 <script>
 var links = {{food.hyperlinks_json | safe}};
-
 var food = new Vue({
     el: '.information',
     data: {
         edit: false,
         processing: false,
-        hyperlinks: links
+        hyperlinks: links,
+        image: '{{food.image}}'
     },
     methods: {
         onSubmit: function(e) {
             e.preventDefault();
-            this.disabled = true;
             var that = this;
+            that.disabled = true;
+
             var data = {
-                name        : this.name,
-                company     : this.company,
-                barcode     : this.barcode,
-                description : this.description,
-                hyperlinks  : this.hyperlinks,
-                image       : imageUpload.getImage()
+                name        : that.name,
+                company     : that.company,
+                barcode     : that.barcode,
+                description : that.description,
+                hyperlinks  : that.$refs.hyperlinks.value(),
+
             };
+
+            if (that.$refs.image.value()) {
+                data.image = that.$refs.image.value();
+            }
+
             this.$http.put('/api/food/' + this.id, data, function (data, status, request) {
                 window.location.href = "/food/" + data.result.id;
                 //this.edit = false;
@@ -190,6 +183,4 @@ var food = new Vue({
         }
     }
 });
-
-var imageUpload = new ImageUpload("image");
 </script>
