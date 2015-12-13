@@ -420,3 +420,9 @@ sub {
 body.dark #wrapper {
   background: transparent !important;
   box-shadow: none !important; }
+
+.offset {
+  margin-top: -80px;
+  padding-top: 80px;
+  display: inline-block;
+}

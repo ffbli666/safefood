@@ -5,7 +5,15 @@ engine: nunjucks
 ---
 
 ## API 說明 :
-#### 取得食物資訊 :
+
+* [取得食物資訊](#get)
+* [關鍵字搜尋](#search)
+* [新增食物資料](#create)
+* [更新食物資料](#update)
+
+
+
+### <a name="get" class="offset"></a>取得食物資訊
 ##### **URL:**  `/api/food/:id`
 ##### **Method:** `get`
 ##### **Description:**
@@ -50,7 +58,7 @@ engine: nunjucks
 }
 ```
 
-#### 關鍵字搜尋 :
+#### <a name="search" class="offset"></a>關鍵字搜尋
 ##### **URL:**  `/api/food`
 ##### **Method:** `get`
 ##### **Description:**
@@ -106,7 +114,7 @@ engine: nunjucks
 }
 ```
 
-#### 新增食物資料 :
+#### <a name="create" class="offset"></a>新增食物資料
 ##### **URL:**  `/api/food/`
 ##### **Method:** `post`
 ##### **Content-Type:** `application/json; charset=utf-8`
@@ -173,7 +181,7 @@ hyperlink
 }
 ```
 
-#### 更新食物資料 :
+#### <a name="update" class="offset"></a>更新食物資料
 ##### **URL:**  `/api/food/:id`
 ##### **Method:** `post`
 ##### **Content-Type:** `application/json; charset=utf-8`
