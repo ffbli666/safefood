@@ -1,2 +1,4 @@
+backup/*
 node_modules/*
 public/upload/*
+public/download/*

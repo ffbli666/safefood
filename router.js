@@ -34,7 +34,9 @@ module.exports = function(app) {
             });
         })
     });
-    //app.put('/api/food', food.search);
+    app.get('/download', function(req, res) {
+        res.render('download.html', {navbar: {download: 'active'}});
+    });
 
     app.get('*', notFound);
 };

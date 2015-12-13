@@ -97,6 +97,7 @@ a img {
 .image-upload {
     margin-top: 10px
 }
+
 .food-information div > div {
     padding: 7px 15px;
 }
@@ -125,6 +126,7 @@ a img {
   height: auto;
   max-height: 300px;
 }
+
 .expand-enter, .expand-leave {
   max-height: 0px;
   opacity: 0;
