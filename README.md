@@ -8,7 +8,7 @@ Database: [Elasticsearch](https://www.elastic.co/)
 
 Frontend: [Vue.js](http://cn.vuejs.org/guide/index.html)
 
-另有使用 cron 模組, 實作 server 內 crontabjob, 每天 1:00 定時備份
+另有使用 cron 模組, 實作 server 內 cronjob, 每天 1:00 定時備份
 
 ### 安裝
 
