@@ -6,9 +6,9 @@ resizeImage = function(image, width, height){
     return canvas.toDataURL("image/jpeg", 85);
 };
 
-var ImageUpload = function (element_id, preview_id) {
+var ImageUpload = function (element_id) {
     var element = document.getElementById(element_id);
-    var preview = document.getElementById(preview_id);
+    var preview = document.getElementById("image-preview");
     var img = new Image();
     var input;
     if (element.type == "file") {
@@ -17,10 +17,15 @@ var ImageUpload = function (element_id, preview_id) {
     else {
         input = document.createElement("input");
         input.setAttribute("type", "file");
-        element.onclick = function() {
-            input.click();
-        };
     }
+    element.onclick = function(e) {
+        if (e.target) {
+            if (e.target.nodeName == "BUTTON"
+                || e.target.nodeName == "IMG"
+                || e.target.className == "image-comment")
+                input.click();
+        }
+    };
     input.accept = "image/*";
     input.onchange = function () {
         var file = input.files[0];

@@ -92,6 +92,7 @@ a img {
     display: table-cell;
     border: 5px dashed #ccc;
     color: #999;
+    cursor: pointer;
 }
 
 .image-upload {

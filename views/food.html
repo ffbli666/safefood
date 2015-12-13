@@ -96,17 +96,19 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">食品的圖片</label>
                     <div class="col-sm-10">
-                        <div id="image-preview" class="image-preview">
-                            {% if food.image %}
-                                <img src="{{food.image}}" alt="{{food.name}}">
-                            {% else %}
-                                <div class="image-comment">
-                                    <label>圖片大小 240 x 240</label>
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div  class="image-upload">
-                            <input type="file" id="image" name="image">
+                        <div id="image">
+                            <div id="image-preview" class="image-preview">
+                                {% if food.image %}
+                                    <img src="{{food.image}}" alt="{{food.name}}">
+                                {% else %}
+                                    <div class="image-comment">
+                                        <label>圖片大小 240 x 240</label>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="image-upload">
+                                <button type="button" class="btn btn-default">上傳圖片</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,5 +191,5 @@ var food = new Vue({
     }
 });
 
-var imageUpload = new ImageUpload("image-preview", "image-preview");
+var imageUpload = new ImageUpload("image");
 </script>
