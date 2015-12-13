@@ -70,7 +70,7 @@ async.waterfall([
                 log("zip end");
                 //copy
                 fs.createReadStream(root_path + "/backup/" + dest_filename)
-                    .pipe(fs.createWriteStream(root_path + "/public/download/backup.zip"));
+                    .pipe(fs.createWriteStream(root_path + "/public/download/safefood.zip"));
                 callback(null);
             });
 
