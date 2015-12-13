@@ -6,7 +6,7 @@ Backend: [Nodejs](https://nodejs.org/en/) + [Express](http://expressjs.com/en/gu
 
 Database: [Elasticsearch](https://www.elastic.co/)
 
-Frontend: [Vue.js](http://cn.vuejs.org/guide/index.html)
+Frontend: [Vue.js](http://cn.vuejs.org/guide/index.html) + [bootstrap](http://getbootstrap.com/)
 
 另有使用 cron 模組, 實作 server 內 cronjob, 每天 1:00 定時備份
 
