@@ -35,7 +35,8 @@ server 背景執行
 
 需安裝 gulp ```npm install gulp -g```
 
-```gulp```
+下指令 ```gulp```
+
 
 
 ### 檔案和資料夾說明
@@ -52,3 +53,5 @@ server 背景執行
  * views: 寫 view 程式
  * router.js: 路由都在這
  * config.js: 設定檔
+
+
