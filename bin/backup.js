@@ -10,15 +10,15 @@ var log = function(str) {
     console.log((new Date).toString() + ": " + str);
 };
 
-
+var root_path = config.server.root_path;
 log("backup starting");
 async.waterfall([
         function(callback) {
             //dump elasticsearch mapping
             log("dump elasticsearch mapping starting");
-            var elasticdump = spawn("../node_modules/elasticdump/bin/elasticdump",
+            var elasticdump = spawn(root_path + "/node_modules/elasticdump/bin/elasticdump",
                         ["--input=http://" + config.database.host + ":" + config.database.port + "/safefood" ,
-                         "--output="+ __dirname + "/../backup/elasticsearch/safefood_mapping.json",
+                         "--output="+ root_path + "/backup/elasticsearch/safefood_mapping.json",
                          "--type=mapping"]);
             elasticdump.stdout.on("data", function (data) {
                 log("" + data);
@@ -38,9 +38,9 @@ async.waterfall([
         function(callback) {
             //dump elasticsearch data
             log("dump elasticsearch data starting");
-            var elasticdump = spawn("../node_modules/elasticdump/bin/elasticdump",
+            var elasticdump = spawn(root_path + "/node_modules/elasticdump/bin/elasticdump",
                                     ["--input=http://" + config.database.host + ":" + config.database.port + "/safefood"  ,
-                                     "--output=" + __dirname + "/../backup/elasticsearch/safefood_index.json",
+                                     "--output=" + root_path + "/backup/elasticsearch/safefood_index.json",
                                      "--type=data"]);
             elasticdump.stdout.on("data", function (data) {
                 log("" + data);
@@ -61,7 +61,7 @@ async.waterfall([
             log("zip starting");
             var date = moment(new Date()).format("YYYY-MM-DD");
             var dest_filename = "backup_" + date+ ".zip";
-            var output = fs.createWriteStream(__dirname + "/../backup/" + dest_filename);
+            var output = fs.createWriteStream(root_path + "/backup/" + dest_filename);
             var archive = archiver("zip");
 
             output.on("close", function() {
@@ -69,8 +69,8 @@ async.waterfall([
                 log("archiver has been finalized and the output file descriptor has closed.");
                 log("zip end");
                 //copy
-                fs.createReadStream(__dirname + "/../backup/" + dest_filename)
-                    .pipe(fs.createWriteStream(__dirname + "/../public/download/backup.zip"));
+                fs.createReadStream(root_path + "/backup/" + dest_filename)
+                    .pipe(fs.createWriteStream(root_path + "/public/download/backup.zip"));
                 callback(null);
             });
 
@@ -81,8 +81,8 @@ async.waterfall([
             archive.pipe(output);
 
             archive
-                .directory(__dirname + "/../backup/elasticsearch", "./elasticsearch")
-                .directory(__dirname + "/../public/upload", "./upload")
+                .directory(root_path + "/backup/elasticsearch", "./elasticsearch")
+                .directory(root_path + "/public/upload", "./upload")
                 .finalize();
         },
     ], function (err, result) {

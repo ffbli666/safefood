@@ -1,7 +1,7 @@
 {
   "name": "express",
-  "description": "my express template",
-  "version": "0.0.1",
+  "description": "safefood",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "archiver": "^0.20.0",
@@ -9,6 +9,7 @@
     "body-parser": "^1.14.1",
     "bson": "^0.4.19",
     "cron": "^1.1.0",
+    "elasticdump": "^0.16.1",
     "elasticsearch": "^10.0.1",
     "express": "^4.13.3",
     "jsdom": "^7.2.0",
