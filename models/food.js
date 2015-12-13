@@ -62,7 +62,7 @@ function food (db) {
             });
 
             if (data.image && data.image != "") {
-                var imageName = response.id + ".png";
+                var imageName = response.id + ".jpg";
                 saveImage(data.image, "./public/upload/" + imageName);
                 cdata.image = "/upload/" + imageName;
             }

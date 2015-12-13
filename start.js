@@ -7,7 +7,7 @@ global.async      = require('async');
 global.config     = require('./config')();
 var elasticsearch = require('./system/database/elasticsearch');
 var cronjob       = require('./system/cronjob')(config.cronjob);
-
+numCPUs = 1;
 if (cluster.isMaster) {
     for (var i = 0; i < numCPUs; i++) {
         cluster.fork();
