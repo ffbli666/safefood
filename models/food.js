@@ -14,12 +14,19 @@ function food (db) {
 
     var create = function(data, myCallback) {
         var date = new Date();
+        var name = htmlFilter(data.name);
+        var company = htmlFilter(data.company);
+        var barcode = htmlFilter(data.barcode);
+        var description = htmlFilter(data.description);
+        if (!name || !company || !description) {
+            myCallback("需要填寫食品名稱、公司名稱、原因");
+            return;
+        }
         var cdata = {
             deleted     : false,
             create_time : date,
             update_time : date
         };
-
         db.create({
             index : config.database.index,
             type  : 'food',
@@ -60,7 +67,6 @@ function food (db) {
                 hyperlinks  : [],
                 update_time : new Date()
             };
-
             data.hyperlinks.forEach(function(element, index, array) {
                 var url = htmlFilter(element.url);
                 cdata.hyperlinks.push({

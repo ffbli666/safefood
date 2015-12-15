@@ -5,7 +5,9 @@ resizeImage = function(image, width, height){
     canvas.getContext("2d").drawImage(image, 0, 0, width, height);
     return canvas.toDataURL("image/jpeg", 85);
 };
-
+checkURL = function(str) {
+    return /^https?:\/\//.test(str);
+};
 var ImageUpload = Vue.extend({
     template:   '<div class="image-upload">'
                     +'<div class="image-preview">'
@@ -55,7 +57,7 @@ var ImageUpload = Vue.extend({
         }
     }
 });
-Vue.component('image-upload', ImageUpload)
+Vue.component('image-upload', ImageUpload);
 
 //vue component
 var HyperlinkGroup = Vue.extend({
@@ -67,7 +69,7 @@ var HyperlinkGroup = Vue.extend({
                                 +'<button type="button" class="btn" v-on:click="remove(data)" title="移除">'
                                     +'<span class="glyphicon glyphicon-remove"></span>'
                                 +'</button>'
-                                +'<input type="text" class="form-control" placeholder="例如：https://tw.yahoo.com" v-model="data.url" value="{{data.url}}"><br>'
+                                +'<input type="text" class="form-control" placeholder="例如：https://tw.yahoo.com" v-model="data.url" value="{{data.url}}" disabled><br>'
                                 +'<label class="control-label">標題：</label>'
                                 +'<input type="text" class="form-control" placeholder="例如：yahoo 新聞" v-model="data.title" value="{{data.title}}"><br>'
                                 +'<label class="control-label">簡述：</label>'
@@ -94,6 +96,11 @@ var HyperlinkGroup = Vue.extend({
     methods: {
         insert: function() {
             if (this.newlink) {
+                if (!checkURL(this.newlink)) {
+                    alert("URL format error");
+                    return false;
+                }
+
                 this.process = true;
                 this.$http.get("/api/crawler?url=" + this.newlink, function (data, status, request) {
                     this.hyperlinks.push(data.result);
@@ -112,5 +119,5 @@ var HyperlinkGroup = Vue.extend({
             return this.hyperlinks;
         }
     }
-})
-Vue.component('hyperlink-group', HyperlinkGroup)
+});
+Vue.component('hyperlink-group', HyperlinkGroup);

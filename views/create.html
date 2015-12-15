@@ -4,7 +4,7 @@
     <h3>請輸入你想提供的食品名稱</h3>
     <hr/>
     <validator name="validation1">
-        <form class="form-horizontal" v-on:submit="onSubmit" novalidate>
+        <form class="form-horizontal" onsubmit="return false;" novalidate>
             <div class="form-group">
                 <label class="col-sm-2 control-label"><span class="red">*</span> 食品名稱</label>
                 <div class="col-sm-10">
@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary" v-bind:disabled="$validation1.invalid || this.processing" disabled>確定</button>
+                    <button type="button" class="btn btn-primary" v-on:click="onSubmit()" v-bind:disabled="$validation1.invalid || this.processing" disabled>確定</button>
                     <button type="button" class="btn btn-default" v-on:click="cancel()">取消</button>
                 </div>
             </div>
@@ -58,11 +58,15 @@ var food = new Vue({
     data: {
         processing: false,
         hyperlinks:[],
-        image: ''
+        image: '',
+        name:'',
+        barcode: '',
+        company: '',
+        description: '',
     },
     methods: {
         onSubmit: function(e) {
-            e.preventDefault();
+            //e.preventDefault();
             var that = this;
             that.processing = true;
             var data = {
