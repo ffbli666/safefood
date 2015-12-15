@@ -1,5 +1,6 @@
 var url   = require("url");
 var jsdom = require('jsdom');
+var validator = require('validator');
 
 module.exports = function() {
     return new crawler();
@@ -7,6 +8,14 @@ module.exports = function() {
 
 function crawler () {
      var get = function(queryURL, myCallback) {
+        if (!queryURL) {
+            myCallback("需要有 URL ");
+            return;
+        }
+        if (!validator.isURL(queryURL)) {
+            myCallback("URL 格式錯誤");
+            return;
+        }
         var u = url.parse(queryURL);
         var reqURL = u.protocol + "//" + u.host + "/" + encodeURIComponent(u.path.substr(1));
         jsdom.env (reqURL ,
