@@ -1,6 +1,7 @@
 var moment = require('moment');
 var fs = require("fs");
 var htmlFilter = require('../system/libs/html-filter');
+var validator = require('validator');
 
 module.exports = function(db) {
     return new food(db);
@@ -69,6 +70,12 @@ function food (db) {
             };
             data.hyperlinks.forEach(function(element, index, array) {
                 var url = htmlFilter(element.url);
+                if (!url) {
+                    return;
+                }
+                if (!validator.isURL(url)) {
+                    return;
+                }
                 cdata.hyperlinks.push({
                     url   : url,
                     title : htmlFilter(element.title),

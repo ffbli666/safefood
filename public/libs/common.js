@@ -97,7 +97,7 @@ var HyperlinkGroup = Vue.extend({
         insert: function() {
             if (this.newlink) {
                 if (!checkURL(this.newlink)) {
-                    alert("URL format error");
+                    alert("URL 格式錯誤");
                     return false;
                 }
 
