@@ -1,4 +1,3 @@
-var url   = require("url");
 var crawlerModel  = require('../models/crawler')();
 
 exports.get = function(req, res) {

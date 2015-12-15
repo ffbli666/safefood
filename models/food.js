@@ -1,5 +1,7 @@
 var moment = require('moment');
 var fs = require("fs");
+var htmlFilter = require('../system/libs/html-filter');
+
 module.exports = function(db) {
     return new food(db);
 };
@@ -8,7 +10,7 @@ function food (db) {
     var saveImage = function (imageData, fileName) {
         var base64Data = imageData.replace(/^data:image\/(png|jpeg);base64,/, "");
         fs.writeFileSync(fileName, base64Data, 'base64');
-    }
+    };
 
     var create = function(data, myCallback) {
         var date = new Date();
@@ -42,22 +44,29 @@ function food (db) {
                 myCallback(error);
                 return;
             }
-
-
+            var name = htmlFilter(data.name);
+            var company = htmlFilter(data.company);
+            var barcode = htmlFilter(data.barcode);
+            var description = htmlFilter(data.description);
+            if (!name || !company || !description) {
+                myCallback("需要填寫食品名稱、公司名稱、原因");
+                return;
+            }
             var cdata = {
-                name        : data.name,
-                company     : data.company,
-                barcode     : data.barcode,
-                description : data.description,
+                name        : name,
+                company     : company,
+                barcode     : barcode,
+                description : description,
                 hyperlinks  : [],
                 update_time : new Date()
             };
 
             data.hyperlinks.forEach(function(element, index, array) {
+                var url = htmlFilter(element.url);
                 cdata.hyperlinks.push({
-                    url   : element.url,
-                    title : element.title,
-                    brief : element.brief
+                    url   : url,
+                    title : htmlFilter(element.title),
+                    brief : htmlFilter(element.brief)
                 });
             });
 

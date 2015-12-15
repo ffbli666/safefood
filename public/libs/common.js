@@ -76,7 +76,7 @@ var HyperlinkGroup = Vue.extend({
                         +'</template>'
                     +'</ul>'
                     +'<div class="input-group">'
-                        +'<input type="text" class="form-control" placeholder="例如：https://tw.yahoo.com" v-model="newlink" v-on:keydown.enter="insert()" v-bind:disabled="process">'
+                        +'<input type="url" class="form-control" placeholder="例如：https://tw.yahoo.com" v-model="newlink" v-on:keydown.enter="insert()" v-bind:disabled="process">'
                         +'<span class="input-group-btn">'
                             +'<button type="button" class="btn btn-default" v-on:click="insert()" title="新增" v-bind:disabled="process">'
                                 +'<span class="glyphicon glyphicon-plus"></span>'

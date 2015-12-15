@@ -16,7 +16,8 @@
     "jsdom": "^7.2.0",
     "moment": "^2.10.6",
     "morgan": "^1.6.1",
-    "nunjucks": "^2.2.0"
+    "nunjucks": "^2.2.0",
+    "sanitize-html": "^1.11.2"
   },
   "devDependencies": {
     "gulp-front-matter": "^1.3.0",
