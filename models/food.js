@@ -9,25 +9,64 @@ module.exports = function(db) {
 
 function food (db) {
     var saveImage = function (imageData, fileName) {
+        var ext = (imageData.indexOf("png") > 0) ? ".png" : ".jpg";
+        var newName = fileName + ext;
         var base64Data = imageData.replace(/^data:image\/(png|jpeg);base64,/, "");
-        fs.writeFileSync(fileName, base64Data, 'base64');
+        fs.writeFileSync(newName, base64Data, 'base64');
+        return newName;
     };
 
-    var create = function(data, myCallback) {
-        var date = new Date();
+    var dataValidator = function (data) {
         var name = htmlFilter(data.name);
         var company = htmlFilter(data.company);
         var barcode = htmlFilter(data.barcode);
         var description = htmlFilter(data.description);
         if (!name || !company || !description) {
-            myCallback("需要填寫食品名稱、公司名稱、原因");
-            return;
+            return {
+                valid : false,
+                msg   : "需要填寫食品名稱、公司名稱、原因"
+            };
         }
         var cdata = {
-            deleted     : false,
-            create_time : date,
-            update_time : date
+            name        : name,
+            company     : company,
+            barcode     : barcode,
+            description : description,
+            hyperlinks  : []
         };
+        data.hyperlinks.forEach(function(element, index, array) {
+            var url = htmlFilter(element.url);
+            if (!url) {
+                return;
+            }
+            if (!validator.isURL(url)) {
+                return;
+            }
+            cdata.hyperlinks.push({
+                url   : url,
+                title : htmlFilter(element.title),
+                brief : htmlFilter(element.brief)
+            });
+        });
+
+        return {
+            valid  : true,
+            data : cdata
+        };
+    };
+
+    var create = function(data, myCallback) {
+        var date = new Date();
+        var result = dataValidator(data);
+        if (!result.valid) {
+            myCallback(result.msg);
+            return
+        };
+        var cdata = result.data;
+        cdata.deleted     = false;
+        cdata.create_time = date;
+        cdata.update_time = date;
+
         db.create({
             index : config.database.index,
             type  : 'food',
@@ -37,7 +76,29 @@ function food (db) {
                 myCallback(error);
                 return;
             }
-            update(response._id, data, myCallback);
+            var id = response._id;
+            // save image
+            if (data.image && data.image != "") {
+                var name = saveImage(data.image, "./public/upload/" + id);
+                db.update({
+                    index : config.database.index,
+                    type  : 'food',
+                    id    : id,
+                    body  : {
+                        doc: {
+                            image: name.replace(/^\.\/public/, "")
+                        }
+                    }
+                }, function (error, response) {
+                    if (error) {
+                        myCallback(error);
+                        return;
+                    }
+                    get(id, myCallback);
+                });
+            } else {
+                get(id, myCallback);
+            }
         });
     };
 
@@ -52,41 +113,17 @@ function food (db) {
                 myCallback(error);
                 return;
             }
-            var name = htmlFilter(data.name);
-            var company = htmlFilter(data.company);
-            var barcode = htmlFilter(data.barcode);
-            var description = htmlFilter(data.description);
-            if (!name || !company || !description) {
-                myCallback("需要填寫食品名稱、公司名稱、原因");
-                return;
-            }
-            var cdata = {
-                name        : name,
-                company     : company,
-                barcode     : barcode,
-                description : description,
-                hyperlinks  : [],
-                update_time : new Date()
+            var result = dataValidator(data);
+            if (!result.valid) {
+                myCallback(result.msg);
+                return
             };
-            data.hyperlinks.forEach(function(element, index, array) {
-                var url = htmlFilter(element.url);
-                if (!url) {
-                    return;
-                }
-                if (!validator.isURL(url)) {
-                    return;
-                }
-                cdata.hyperlinks.push({
-                    url   : url,
-                    title : htmlFilter(element.title),
-                    brief : htmlFilter(element.brief)
-                });
-            });
+            var cdata = result.data;
+            cdata.update_time = new Date();
 
             if (data.image && data.image != "") {
-                var imageName = response.id + ".jpg";
-                saveImage(data.image, "./public/upload/" + imageName);
-                cdata.image = "/upload/" + imageName;
+                var name = saveImage(data.image, "./public/upload/" + response.id);
+                cdata.image = name.replace(/^\.\/public/, "");
             }
 
             db.update({
