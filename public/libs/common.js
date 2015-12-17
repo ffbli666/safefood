@@ -28,29 +28,32 @@ var ImageUpload = Vue.extend({
         };
     },
     props: ['image'],
+    ready: function() {
+        var that = this;
+        if (!this.input) {
+            input = document.createElement("input");
+            input.setAttribute("type", "file");
+            input.onchange = function () {
+                var file = input.files[0];
+                if (file.type.match(input.accept)) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var img = new Image();
+                        img.onload = function() {
+                            that.image = resizeImage(img, 240, 240);
+                            that.newImage = that.image;
+                        };
+                        img.src = reader.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            };
+            this.input = input;
+        }
+    },
     methods: {
         chooseFile: function() {
-            var that = this;
-            if (!this.input) {
-                input = document.createElement("input");
-                input.setAttribute("type", "file");
-                input.onchange = function () {
-                    var file = input.files[0];
-                    if (file.type.match(input.accept)) {
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            var img = new Image();
-                            img.onload = function() {
-                                that.image = resizeImage(img, 240, 240);
-                                that.newImage = that.image;
-                            };
-                            img.src = reader.result;
-                        }
-                        reader.readAsDataURL(file);
-                    }
-                };
-            }
-            input.click();
+            this.input.click();
         },
         value: function() {
             return this.newImage;
