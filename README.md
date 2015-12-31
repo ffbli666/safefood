@@ -41,16 +41,16 @@ server 背景執行
 
 ### 檔案和資料夾說明
 
+ * /system: 系統核心
  * /backup: 每日備份資料
  * /bin: 放執行檔
- * /controllers: 寫 controller 程式
  * /develop: 跟開發有關的東西, 目前是放 postman 設定檔
  * /docs: 放開發文件
  * /log: 系統 log 產生的地方
- * /models: 寫 model 程式
- * /public: 靜態檔案, 像 css、image、zip 等
- * /system: 系統核心
- * /views: 寫 view 程式
+ * /application/controllers: 寫 controller 程式
+ * /application/models: 寫 model 程式
+ * /application/public: 靜態檔案, 像 css、image、zip 等
+ * /application/views: 寫 view 程式
  * router.js: 路由都在這
  * config.js: 設定檔
 

@@ -1,5 +1,5 @@
 {
-  "name": "express",
+  "name": "safefood",
   "description": "safefood",
   "version": "0.1.0",
   "private": true,
@@ -24,5 +24,18 @@
     "gulp-front-matter": "^1.3.0",
     "gulp-layout": "0.0.3",
     "gulp-markdown": "^1.2.0"
-  }
+  },
+  "scripts": {
+    "start": "node start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ffbli666/safefood.git"
+  },
+  "author": "ffbli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ffbli666/safefood/issues"
+  },
+  "homepage": "https://github.com/ffbli666/safefood#readme"
 }

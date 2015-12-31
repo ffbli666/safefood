@@ -10,5 +10,5 @@ gulp.task('default', function() {
             .pipe(layout(function(file) {
                 return file.frontMatter;
             }))
-            .pipe(gulp.dest('./public/docs'));
+            .pipe(gulp.dest('./application/public/docs'));
 });

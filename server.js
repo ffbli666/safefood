@@ -10,7 +10,7 @@ exports.start = function (config) {
     console.log("Environment: " + config.environment);
     var accessLogStream;
     if (config.environment == 'staging') {
-        nunjucks.configure('views', {
+        nunjucks.configure('application/views', {
             autoescape : true,
             express    : app,
             noCache    : true
@@ -18,7 +18,7 @@ exports.start = function (config) {
         app.use(morgan('combined'))
     }
     else {
-        nunjucks.configure('views', {
+        nunjucks.configure('application/views', {
             autoescape : true,
             express    : app
         });
@@ -33,7 +33,7 @@ exports.start = function (config) {
 
     app.use(bodyParser.json({type: 'application/json', limit: config.post_json_limit}));
     app.use(bodyParser.urlencoded({type: 'application/x-www-form-urlencoded', extended:false}));
-    app.use(express.static( __dirname + '/public'));
+    app.use(express.static( __dirname + '/application/public'));
     require('./router')(app);
 
     var server = app.listen(config.port, function() {

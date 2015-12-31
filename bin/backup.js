@@ -70,7 +70,7 @@ async.waterfall([
                 log("zip end");
                 //copy
                 fs.createReadStream(root_path + "/backup/" + dest_filename)
-                    .pipe(fs.createWriteStream(root_path + "/public/download/safefood.zip"));
+                    .pipe(fs.createWriteStream(root_path + "/application/public/download/safefood.zip"));
                 callback(null);
             });
 
@@ -82,7 +82,7 @@ async.waterfall([
 
             archive
                 .directory(root_path + "/backup/elasticsearch", "./elasticsearch")
-                .directory(root_path + "/public/upload", "./upload")
+                .directory(root_path + "/application/public/upload", "./upload")
                 .finalize();
         },
     ], function (err, result) {

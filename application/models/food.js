@@ -1,6 +1,6 @@
 var moment = require('moment');
 var fs = require("fs");
-var htmlFilter = require('../system/libs/html-filter');
+var htmlFilter = require('../../system/libs/html-filter');
 var validator = require('validator');
 
 module.exports = function(db) {
@@ -79,14 +79,14 @@ function food (db) {
             var id = response._id;
             // save image
             if (data.image && data.image != "") {
-                var name = saveImage(data.image, "./public/upload/" + id);
+                var name = saveImage(data.image, "./application/public/upload/" + id);
                 db.update({
                     index : config.database.index,
                     type  : 'food',
                     id    : id,
                     body  : {
                         doc: {
-                            image: name.replace(/^\.\/public/, "")
+                            image: name.replace(/^\.\/application\/public/, "")
                         }
                     }
                 }, function (error, response) {
@@ -122,8 +122,8 @@ function food (db) {
             cdata.update_time = new Date();
 
             if (data.image && data.image != "") {
-                var name = saveImage(data.image, "./public/upload/" + response.id);
-                cdata.image = name.replace(/^\.\/public/, "");
+                var name = saveImage(data.image, "./application/public/upload/" + response.id);
+                cdata.image = name.replace(/^\.\/application\/public/, "");
             }
 
             db.update({

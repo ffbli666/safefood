@@ -1,6 +1,6 @@
 ---
 title: API 說明
-layout: ./views/templates/markdown.html
+layout: ./application/views/templates/markdown.html
 engine: nunjucks
 ---
 
